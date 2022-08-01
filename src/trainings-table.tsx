@@ -26,41 +26,47 @@ export const TrainingsTable = ({
       }}
     >
       {trainings &&
-        Object.keys(trainings)
-          .reverse()
-          .map((id) => (
-            <div
-              style={{
-                display: "flex",
-                width: "90%",
-                justifyContent: "center",
-                marginBottom: "16px",
-              }}
-              key={id}
-            >
-              <TrainingTable training={trainings[parseInt(id)]} />
+        trainings
+          .map((_, index) => {
+            const training = trainings[index];
+
+            return (
               <div
                 style={{
                   display: "flex",
-                  marginLeft: "6px",
+                  width: "90%",
+                  justifyContent: "center",
+                  marginBottom: "16px",
                 }}
+                key={index}
               >
-                <button
-                  className="btn-edit"
-                  style={{ marginRight: "2px" }}
-                  onClick={() => handleEdit(parseInt(id))}
+                <TrainingTable training={training} />
+                <div
+                  style={{
+                    display: "flex",
+                    marginLeft: "6px",
+                  }}
                 >
-                  edit
-                </button>
-                <button
-                  className="btn-delete"
-                  onClick={() => handleDelete(parseInt(id))}
-                >
-                  x
-                </button>
+                  <button
+                    className="btn-edit"
+                    style={{ marginRight: "2px" }}
+                    onClick={() => handleEdit(training.id)}
+                  >
+                    edit
+                  </button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(training.id)}
+                  >
+                    x
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })
+          // TO DO: CHECK
+          // why does this not work before we map?
+          .reverse()}
     </div>
   );
 };
